@@ -5,6 +5,7 @@ import { Inter } from 'next/font/google';
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://fitnesshub.com'),
   title: 'FitnessHub - Transform Your Body & Mind | Premium Gym & Fitness Center',
   description: 'Join FitnessHub for world-class fitness facilities, expert trainers, and comprehensive wellness programs. Start your transformation journey today with our state-of-the-art gym.',
   keywords: 'gym, fitness, personal training, group classes, wellness, health, workout, strength training, cardio, yoga, pilates',
