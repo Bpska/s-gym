@@ -7,7 +7,7 @@ import { Footer } from '@/components/layout/footer';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { Clock, Users, Star, Filter, Search, Calendar } from 'lucide-react';
+import { Clock, Users, Star, Search, Calendar } from 'lucide-react';
 import { gymClasses } from '@/lib/data';
 import { fadeInUp, staggerContainer } from '@/lib/animations';
 import Image from 'next/image';
@@ -24,19 +24,24 @@ export default function ClassesPage() {
     const matchesCategory = selectedCategory === 'All' || gymClass.category === selectedCategory;
     const matchesDifficulty = selectedDifficulty === 'All' || gymClass.difficulty === selectedDifficulty.toLowerCase();
     const matchesSearch = gymClass.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         gymClass.description.toLowerCase().includes(searchTerm.toLowerCase());
-    
+      gymClass.description.toLowerCase().includes(searchTerm.toLowerCase());
+
     return matchesCategory && matchesDifficulty && matchesSearch;
   });
 
   return (
     <main className="min-h-screen bg-gray-50">
       <Header />
-      
+
       {/* Hero Section */}
       <section className="pt-24 pb-16 bg-gradient-to-r from-orange-500 to-red-600 text-white">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div {...fadeInUp} className="text-center">
+          <motion.div
+            initial={fadeInUp.initial}
+            animate={fadeInUp.animate}
+            // transition={fadeInUp.transition}
+            className="text-center"
+          >
             <h1 className="text-4xl md:text-5xl font-bold mb-4">
               Fitness Classes
             </h1>
@@ -116,11 +121,10 @@ export default function ClassesPage() {
                       className="object-cover"
                     />
                     <div className="absolute top-4 left-4">
-                      <Badge className={`${
-                        gymClass.difficulty === 'beginner' ? 'bg-green-500' :
-                        gymClass.difficulty === 'intermediate' ? 'bg-yellow-500' :
-                        'bg-red-500'
-                      }`}>
+                      <Badge className={`${gymClass.difficulty === 'beginner' ? 'bg-green-500' :
+                          gymClass.difficulty === 'intermediate' ? 'bg-yellow-500' :
+                            'bg-red-500'
+                        }`}>
                         {gymClass.difficulty}
                       </Badge>
                     </div>
@@ -128,7 +132,7 @@ export default function ClassesPage() {
                       ${gymClass.price}
                     </div>
                   </div>
-                  
+
                   <CardContent className="p-6 flex flex-col h-full">
                     <div className="flex-1">
                       <h3 className="text-xl font-semibold text-gray-900 mb-2">
@@ -137,7 +141,7 @@ export default function ClassesPage() {
                       <p className="text-gray-600 mb-4">
                         {gymClass.description}
                       </p>
-                      
+
                       <div className="flex items-center justify-between mb-4">
                         <div className="flex items-center space-x-2 text-sm text-gray-500">
                           <Clock className="h-4 w-4" />
@@ -148,7 +152,7 @@ export default function ClassesPage() {
                           <span>{gymClass.currentBookings}/{gymClass.capacity}</span>
                         </div>
                       </div>
-                      
+
                       <div className="flex items-center justify-between mb-4">
                         <div className="flex items-center space-x-2">
                           <Image
@@ -181,7 +185,7 @@ export default function ClassesPage() {
                         </div>
                       </div>
                     </div>
-                    
+
                     <Button className="w-full bg-orange-500 hover:bg-orange-600 mt-auto">
                       <Calendar className="h-4 w-4 mr-2" />
                       Book Class
@@ -193,14 +197,19 @@ export default function ClassesPage() {
           </motion.div>
 
           {filteredClasses.length === 0 && (
-            <motion.div {...fadeInUp} className="text-center py-16">
+            <motion.div
+              initial={fadeInUp.initial}
+              animate={fadeInUp.animate}
+              // transition={fadeInUp.transition}
+              className="text-center py-16"
+            >
               <h3 className="text-2xl font-semibold text-gray-900 mb-4">
                 No classes found
               </h3>
               <p className="text-gray-600 mb-6">
                 Try adjusting your filters or search terms
               </p>
-              <Button 
+              <Button
                 onClick={() => {
                   setSelectedCategory('All');
                   setSelectedDifficulty('All');
